@@ -7,9 +7,11 @@ import { environment } from "src/environments/environment";
 })
 export class VideoService {
   constructor(private http: HttpClient) {}
+
   addVideoToQueue(data) {
     return this.http.post(`${environment.apiUrl}/jobs/new`, data);
   }
+
   getVideo(videoUrl: string) {
     return this.http.get<Blob>(videoUrl, {
       headers: new HttpHeaders({

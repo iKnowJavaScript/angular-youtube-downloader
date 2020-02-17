@@ -19,9 +19,16 @@ import { AppComponent } from "./app.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent],
+  declarations: [
+    AppComponent,
+    HomePageComponent,
+    LandingPageComponent,
+    NavBarComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
