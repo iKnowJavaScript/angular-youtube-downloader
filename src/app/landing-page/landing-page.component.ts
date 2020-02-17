@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { VideoService } from "../video.service";
 import { NgForm } from "@angular/forms";
 import io from "socket.io-client";
@@ -6,11 +6,11 @@ import { environment } from "src/environments/environment";
 import { saveAs } from "file-saver";
 
 @Component({
-  selector: "app-home-page",
-  templateUrl: "./home-page.component.html",
-  styleUrls: ["./home-page.component.scss"]
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class LandingPageComponent implements OnInit {
   videoData: any = <any>{};
   progress: number = 0;
   fileLocation: string;
