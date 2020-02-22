@@ -1,0 +1,6 @@
+p {
+  background-image: url(../../assets/svg/logo.svg);
+  background-size: cover;
+  width: 80px;
+  height: 50px;
+}
