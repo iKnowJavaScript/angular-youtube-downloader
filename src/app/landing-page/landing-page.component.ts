@@ -19,7 +19,6 @@ export class LandingPageComponent implements OnInit {
   connected: boolean = false;
   socket;
   getVideoSub;
-  barWidth: number = 80;
   downloadHistory: [{}];
 
   constructor(private videoService: VideoService) {}
@@ -46,11 +45,11 @@ export class LandingPageComponent implements OnInit {
         }
         this.progress = msg.progress;
         if (msg.progress == 100) {
-          this.progress = 0;
           this.getCompleteJobs();
         }
       });
       this.socket.on("video_done", msg => {
+        this.progress = 100;
         if (this.jobId != msg.jobId || this.downloaded) {
           return;
         }
@@ -69,7 +68,6 @@ export class LandingPageComponent implements OnInit {
 
     this.videoService.addVideoToQueue(this.videoData).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.payload.file_location) {
           return this.downloadVideo(res.payload.file_location);
         }
@@ -95,12 +93,14 @@ export class LandingPageComponent implements OnInit {
     return this.videoService
       .getVideo(`${environment.apiUrl}/jobs/file/${fileLocation}`)
       .subscribe(res => {
-        if (!this.downloaded) {
-          saveAs(res, `${fileLocation}.mp4`);
-          this.progress = 0;
-          this.downloaded = true;
-          this.getVideoSub.unsubscribe();
-        }
+        saveAs(res, `${fileLocation}.mp4`);
+        this.progress = 0;
+        this.downloaded = true;
       });
+  }
+
+  barWidth(number) {
+    const finalWidth = 430;
+    return `${(finalWidth / 100) * number}px`;
   }
 }
