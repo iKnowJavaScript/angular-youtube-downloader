@@ -28,17 +28,25 @@
         />
       </form>
 
-      <!-- <br /> -->
       <div class="progress_container">
         <small>Monitor your download progress below.</small>
         <app-progress-bar
-          [width]="barWidth"
+          [width]="progress"
           [state]="progress"
         ></app-progress-bar>
       </div>
 
       <app-twitter-tile></app-twitter-tile>
-      <app-screen-tile></app-screen-tile>
+      <app-screen-tile [histories]="downloadHistory"></app-screen-tile>
     </div>
   </div>
 </div>
+
+<footer>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+  />
+  Made with <i class="icon ion-heart"></i> in Nigeria
+</footer>
