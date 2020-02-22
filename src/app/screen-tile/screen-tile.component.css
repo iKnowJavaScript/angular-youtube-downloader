@@ -10,13 +10,13 @@ section#onerule {
 .row {
   top: 0px;
   opacity: 1;
-  max-width: 620px;
+  width: 620px;
   margin: 0 auto;
   padding: 0;
   position: relative;
 }
 
-#onerule p {
+.center p {
   margin-top: 10px;
   margin-bottom: 20px;
   font-size: 20px;
@@ -24,7 +24,6 @@ section#onerule {
   color: rgba(39, 42, 45, 0.7);
   line-height: 32px;
   margin-top: 2rem;
-  /* max-width: 588px; */
 }
 
 .wide-row {
@@ -58,24 +57,10 @@ section#onerule {
 
 .screen-inner {
   padding: 15px 20px;
-  background: -moz-linear-gradient(
-    top,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); */
   display: flex;
   flex-direction: column;
+  background-color: #eceaea;
+  border-radius: 70px;
 }
 
 .screen:after {
@@ -109,4 +94,25 @@ section#onerule {
 div.row {
   text-align: center;
   font-family: "Circular Bold", "arial", sans-serif;
+}
+
+.screen-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left,
+.right {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+}
+
+.left {
+  background-image: url(../../assets/svg/previous.svg);
+}
+
+.right {
+  background-image: url(../../assets/svg/next.svg);
 }
