@@ -99,7 +99,6 @@ export class LandingPageComponent implements OnInit {
           saveAs(res, `${fileLocation}.mp4`);
           this.progress = 0;
           this.downloaded = true;
-          this.getVideoSub.unsubscribe();
         }
       });
   }
