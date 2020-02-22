@@ -1,0 +1,52 @@
+<div class="container">
+  <app-nav-bar></app-nav-bar>
+
+  <div class="main">
+    <div id="content">
+      <h3 class="heading">Download Video From YouTube Fast...</h3>
+      <p class="narate">
+        Get the link and paste and paste it in the box below.
+      </p>
+
+      <form #videoForm="ngForm" (ngSubmit)="addVideoToQueue(videoForm)">
+        <input
+          class="url_input"
+          placeholder="YouTube URL"
+          required
+          #url="ngModel"
+          name="url"
+          [(ngModel)]="videoData.url"
+          [disabled]="progress != 0"
+        />
+
+        <input
+          id="submit"
+          type="submit"
+          class="success md-trigger btn"
+          data-modal="modal"
+          value="Get it!"
+        />
+      </form>
+
+      <div class="progress_container">
+        <small>Monitor your download progress below.</small>
+        <app-progress-bar
+          [width]="progress"
+          [state]="progress"
+        ></app-progress-bar>
+      </div>
+
+      <app-twitter-tile></app-twitter-tile>
+      <app-screen-tile [histories]="downloadHistory"></app-screen-tile>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+  />
+  Made with <i class="icon ion-heart"></i> in Nigeria
+</footer>

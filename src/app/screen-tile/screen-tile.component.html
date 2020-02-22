@@ -1,0 +1,67 @@
+<section id="onerule" class="page">
+  <div class="center">
+    <div class="row">
+      <p>Download History, see recent download.</p>
+    </div>
+
+    <ng-container *ngFor="let download of histories">
+      <div class="wide-row image-row">
+        <div class="screen">
+          <div class="screen-inner">
+            <div class="status">
+              <img src="../../assets/svg/youtube.svg" alt="youtube" />
+              <img
+                [src]="
+                  download.file_location !== 'NULL'
+                    ? '../../assets/svg/download_done.svg'
+                    : '../../assets/svg/download_fail.svg'
+                "
+                alt="status"
+                [title]="
+                  download.file_location !== 'NULL' ? 'Success' : 'Failed'
+                "
+              />
+            </div>
+
+            <div class="title">
+              <p>
+                {{
+                  download.title
+                    ? download.title
+                    : download.file_location !== "NULL"
+                    ? download.file_location
+                    : "Not Available"
+                }}
+              </p>
+            </div>
+
+            <div class="detail">
+              <small
+                >{{ download.size ? download.size : "Size Not Set" }}
+                {{ download.size ? "MB" : "" }}</small
+              >
+              <img
+                [src]="
+                  download.file_location !== 'NULL'
+                    ? '../../assets/svg/save.svg'
+                    : '../../assets/svg/block.svg'
+                "
+                alt="save"
+                [title]="
+                  download.file_location !== 'NULL'
+                    ? 'Download Video'
+                    : 'Invalid Video'
+                "
+                (click)="downloadFile(download)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="screen-container">
+    <div class="left" (click)="pagination('PREVIOUS')"></div>
+    <div class="right" (click)="pagination('NEXT')"></div>
+  </div>
+</section>
