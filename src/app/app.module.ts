@@ -21,13 +21,19 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { TwitterTileComponent } from './twitter-tile/twitter-tile.component';
+import { ScreenTileComponent } from './screen-tile/screen-tile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     LandingPageComponent,
-    NavBarComponent
+    NavBarComponent,
+    ProgressBarComponent,
+    TwitterTileComponent,
+    ScreenTileComponent
   ],
   imports: [
     BrowserModule,
