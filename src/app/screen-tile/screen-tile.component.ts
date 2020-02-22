@@ -31,7 +31,6 @@ export class ScreenTileComponent implements OnInit {
   }
 
   pagination(state) {
-    console.log(state);
     switch (state) {
       case "PREVIOUS":
         this.page <= 0 ? (this.page = 0) : this.page--;
