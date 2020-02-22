@@ -9,7 +9,7 @@ export class VideoService {
   constructor(private http: HttpClient) {}
 
   addVideoToQueue(data) {
-    return this.http.post(`${environment.apiUrl}/jobs/new`, data);
+    return this.http.post<Blob>(`${environment.apiUrl}/jobs/new`, data);
   }
 
   getVideo(videoUrl: string) {
@@ -19,6 +19,18 @@ export class VideoService {
         "content-type": "application/json"
       }),
       responseType: "blob" as "json"
+    });
+  }
+
+  getDoneJobs(
+    videoUrl: string,
+    { page = 0, take = 10 }: { page?: number; take?: number }
+  ) {
+    return this.http.get(`${videoUrl}DONE?page=${page}&take${take}`, {
+      headers: new HttpHeaders({
+        accept: "application/json",
+        "content-type": "application/json"
+      })
     });
   }
 }
