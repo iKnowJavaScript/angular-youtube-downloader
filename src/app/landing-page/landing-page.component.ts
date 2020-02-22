@@ -83,4 +83,15 @@ export class LandingPageComponent implements OnInit {
       }
     );
   }
+
+  getCompleteJobs() {
+    this.videoService
+      .getDoneJobs(`${environment.apiUrl}/jobs/`, {})
+      .subscribe((res: any) => {
+        if (res.statusCode === 200) {
+          this.downloadHistory = res.payload;
+        }
+      });
+  }
+
 }
