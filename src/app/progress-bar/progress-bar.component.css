@@ -1,0 +1,21 @@
+.progress-bar-2 {
+  width: 430px;
+  background-color: #c1c0c0;
+  height: 8px;
+  border-radius: 0px 7px 7px 0px;
+}
+
+.progress-level {
+  height: 8px;
+  background: #216ef4;
+  border-radius: 7px;
+  border-color: transparent;
+}
+
+.state {
+  border: 0;
+}
+
+.digit {
+  margin-top: -10px;
+}
