@@ -20,12 +20,13 @@ export class LandingPageComponent implements OnInit {
   socket;
   getVideoSub;
   barWidth: number = 80;
+  downloadHistory: [{}];
 
   constructor(private videoService: VideoService) {}
 
   ngOnInit() {
-    // this.addConnectionHandlers();
-    console.log(this.progress);
+    this.addConnectionHandlers();
+    this.getCompleteJobs();
   }
 
   addConnectionHandlers() {
@@ -38,28 +39,24 @@ export class LandingPageComponent implements OnInit {
       this.socket.on("connected", msg => {});
       this.socket.on("progress", msg => {
         if (this.jobId != msg.jobId) {
+          if (msg.progress >= 100) {
+            this.downloadHistory.push(msg);
+          }
           return;
         }
         this.progress = msg.progress;
         if (msg.progress == 100) {
           this.progress = 0;
+          this.getCompleteJobs();
         }
       });
       this.socket.on("video_done", msg => {
         if (this.jobId != msg.jobId || this.downloaded) {
           return;
         }
-        this.getVideoSub = this.videoService
-          .getVideo(`${environment.apiUrl}/jobs/file/${msg.fileLocation}`)
-          .subscribe(res => {
-            if (!this.downloaded) {
-              saveAs(res, `${msg.fileLocation}.mp4`);
-              this.progress = 0;
-              this.downloaded = true;
-              this.getVideoSub.unsubscribe();
-            }
-          });
+        this.getVideoSub = this.downloadVideo(msg.fileLocation);
       });
+    });
   }
 
   addVideoToQueue(videoForm: NgForm) {
