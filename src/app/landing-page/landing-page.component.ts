@@ -60,20 +60,25 @@ export class LandingPageComponent implements OnInit {
             }
           });
       });
-    });
   }
 
   addVideoToQueue(videoForm: NgForm) {
-    this.downloaded = false;
-    if (videoForm.invalid) {
+    var valid = /^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/;
+    this.videoData.url = this.videoData.url.trim();
+    if (!valid.test(this.videoData.url)) {
+      alert(`Invalid URL ${this.videoData.url}`);
       return;
     }
+
     this.videoService.addVideoToQueue(this.videoData).subscribe(
-      res => {
+      (res: any) => {
+        console.log(res);
+        if (res.payload.file_location) {
+          return this.downloadVideo(res.payload.file_location);
+        }
         this.jobId = (res as any).payload.id;
       },
       err => {
-        console.log(err);
         alert("Invalid URL");
       }
     );
