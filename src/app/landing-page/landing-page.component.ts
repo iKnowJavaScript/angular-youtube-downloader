@@ -94,4 +94,16 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
+  downloadVideo(fileLocation: string) {
+    return this.videoService
+      .getVideo(`${environment.apiUrl}/jobs/file/${fileLocation}`)
+      .subscribe(res => {
+        if (!this.downloaded) {
+          saveAs(res, `${fileLocation}.mp4`);
+          this.progress = 0;
+          this.downloaded = true;
+          this.getVideoSub.unsubscribe();
+        }
+      });
+  }
 }
