@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { VideoService } from "../video.service";
 import { NgForm } from "@angular/forms";
 import io from "socket.io-client";
@@ -6,9 +6,9 @@ import { environment } from "src/environments/environment";
 import { saveAs } from "file-saver";
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.css']
+  selector: "app-landing-page",
+  templateUrl: "./landing-page.component.html",
+  styleUrls: ["./landing-page.component.css"]
 })
 export class LandingPageComponent implements OnInit {
   videoData: any = <any>{};
@@ -19,11 +19,13 @@ export class LandingPageComponent implements OnInit {
   connected: boolean = false;
   socket;
   getVideoSub;
+  barWidth: number = 80;
 
   constructor(private videoService: VideoService) {}
 
   ngOnInit() {
     // this.addConnectionHandlers();
+    console.log(this.progress);
   }
 
   addConnectionHandlers() {
@@ -71,6 +73,7 @@ export class LandingPageComponent implements OnInit {
         this.jobId = (res as any).payload.id;
       },
       err => {
+        console.log(err);
         alert("Invalid URL");
       }
     );

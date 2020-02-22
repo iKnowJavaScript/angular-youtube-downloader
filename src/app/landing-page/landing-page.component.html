@@ -1,3 +1,44 @@
-<app-nav-bar></app-nav-bar>
-<p>landing-page works!</p>
+<div class="container">
+  <app-nav-bar></app-nav-bar>
 
+  <div class="main">
+    <div id="content">
+      <h3 class="heading">Download Video From YouTube Fast...</h3>
+      <p class="narate">
+        Get the link and paste and paste it in the box below.
+      </p>
+
+      <form #videoForm="ngForm" (ngSubmit)="addVideoToQueue(videoForm)">
+        <input
+          class="url_input"
+          placeholder="YouTube URL"
+          required
+          #url="ngModel"
+          name="url"
+          [(ngModel)]="videoData.url"
+          [disabled]="progress != 0"
+        />
+
+        <input
+          id="submit"
+          type="submit"
+          class="success md-trigger btn"
+          data-modal="modal"
+          value="Get it!"
+        />
+      </form>
+
+      <!-- <br /> -->
+      <div class="progress_container">
+        <small>Monitor your download progress below.</small>
+        <app-progress-bar
+          [width]="barWidth"
+          [state]="progress"
+        ></app-progress-bar>
+      </div>
+
+      <app-twitter-tile></app-twitter-tile>
+      <app-screen-tile></app-screen-tile>
+    </div>
+  </div>
+</div>
