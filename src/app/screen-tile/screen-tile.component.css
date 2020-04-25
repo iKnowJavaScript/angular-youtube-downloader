@@ -59,8 +59,8 @@ section#onerule {
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
-  background-color: #eceaea;
-  border-radius: 70px;
+  background-color: #e0e0e0;
+  border-radius: 7px;
 }
 
 .screen:after {
