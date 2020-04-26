@@ -62,6 +62,9 @@
   </div>
   <div class="screen-container">
     <div class="left" (click)="pagination('PREVIOUS')"></div>
+    <div *ngIf="!histories?.length" class="row">
+      Strange 🤖 No history to display.
+    </div>
     <div class="right" (click)="pagination('NEXT')"></div>
   </div>
 </section>

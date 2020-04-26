@@ -116,3 +116,31 @@ footer {
   margin-top: 30px;
   text-align: center;
 }
+
+
+.invalid-feedback > div {
+  word-wrap: break-word;
+}
+
+.is-invalid {
+  border: 1.5px solid #fa235d;;
+}
+
+.is-invalid ~ label {
+  color: #fa235d;;
+}
+
+.invalid-feedback {
+  display: block;
+  color: #fa235d;;
+  position: relative;
+  margin-top: 0.3rem;
+}
+
+.feedback-img {
+  margin-right: 0.2rem;
+}
+
+.feedback-text {
+  font-size: 0.8rem;
+}
