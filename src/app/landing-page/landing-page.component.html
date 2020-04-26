@@ -17,6 +17,8 @@
           name="url"
           [(ngModel)]="videoData.url"
           [disabled]="progress != 0"
+          [ngClass]="{ 'is-invalid': errorMessage }"
+          (input)="resetInputError()"
         />
 
         <input
@@ -27,11 +29,19 @@
           value="Get it!"
         />
       </form>
+      <div *ngIf="errorMessage" class="invalid-feedback">
+        <div class="feedback-section">
+          <span class="feedback-img"
+            ><img src="../../assets/svg/invalid_logo.svg" alt=""
+          /></span>
+          <span class="feedback-text">{{ errorMessage }}</span>
+        </div>
+      </div>
 
       <div class="progress_container">
         <small>Monitor your download progress below.</small>
         <app-progress-bar
-          [width]="progress"
+          [width]="barWidth(progress)"
           [state]="progress"
         ></app-progress-bar>
       </div>

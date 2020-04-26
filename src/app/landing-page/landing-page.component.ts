@@ -8,7 +8,7 @@ import { saveAs } from "file-saver";
 @Component({
   selector: "app-landing-page",
   templateUrl: "./landing-page.component.html",
-  styleUrls: ["./landing-page.component.css"]
+  styleUrls: ["./landing-page.component.css"],
 })
 export class LandingPageComponent implements OnInit {
   videoData: any = <any>{};
@@ -19,8 +19,8 @@ export class LandingPageComponent implements OnInit {
   connected: boolean = false;
   socket;
   getVideoSub;
-  barWidth: number = 80;
   downloadHistory: [{}];
+  errorMessage: string;
 
   constructor(private videoService: VideoService) {}
 
@@ -35,9 +35,9 @@ export class LandingPageComponent implements OnInit {
       this.socket = io.connect(environment.socketIoUrl);
     });
     this.socket = io.connect(environment.socketIoUrl);
-    this.socket.on("connect", data => {
-      this.socket.on("connected", msg => {});
-      this.socket.on("progress", msg => {
+    this.socket.on("connect", (data) => {
+      this.socket.on("connected", (msg) => {});
+      this.socket.on("progress", (msg) => {
         if (this.jobId != msg.jobId) {
           if (msg.progress >= 100) {
             this.downloadHistory.push(msg);
@@ -46,11 +46,11 @@ export class LandingPageComponent implements OnInit {
         }
         this.progress = msg.progress;
         if (msg.progress == 100) {
-          this.progress = 0;
           this.getCompleteJobs();
         }
       });
-      this.socket.on("video_done", msg => {
+      this.socket.on("video_done", (msg) => {
+        this.progress = 100;
         if (this.jobId != msg.jobId || this.downloaded) {
           return;
         }
@@ -59,23 +59,31 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
+  resetInputError() {
+    this.errorMessage = "";
+  }
+
   addVideoToQueue(videoForm: NgForm) {
+    if (!this.videoData.url) {
+      this.errorMessage = "Kindly enter a valid youtube url";
+      return;
+    }
+
     var valid = /^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/;
     this.videoData.url = this.videoData.url.trim();
     if (!valid.test(this.videoData.url)) {
-      alert(`Invalid URL ${this.videoData.url}`);
+      this.errorMessage = `Invalid URL ${this.videoData.url}`;
       return;
     }
 
     this.videoService.addVideoToQueue(this.videoData).subscribe(
       (res: any) => {
-        console.log(res);
         if (res.payload.file_location) {
           return this.downloadVideo(res.payload.file_location);
         }
         this.jobId = (res as any).payload.id;
       },
-      err => {
+      (err) => {
         alert("Invalid URL");
       }
     );
@@ -94,13 +102,15 @@ export class LandingPageComponent implements OnInit {
   downloadVideo(fileLocation: string) {
     return this.videoService
       .getVideo(`${environment.apiUrl}/jobs/file/${fileLocation}`)
-      .subscribe(res => {
-        if (!this.downloaded) {
-          saveAs(res, `${fileLocation}.mp4`);
-          this.progress = 0;
-          this.downloaded = true;
-          this.getVideoSub.unsubscribe();
-        }
+      .subscribe((res) => {
+        saveAs(res, `${fileLocation}.mp4`);
+        this.progress = 0;
+        this.downloaded = true;
       });
+  }
+
+  barWidth(number) {
+    const finalWidth = 430;
+    return `${(finalWidth / 100) * number}px`;
   }
 }

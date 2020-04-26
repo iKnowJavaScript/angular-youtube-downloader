@@ -6,11 +6,19 @@ import { environment } from "src/environments/environment";
 @Component({
   selector: "app-screen-tile",
   templateUrl: "./screen-tile.component.html",
-  styleUrls: ["./screen-tile.component.css"]
+  styleUrls: ["./screen-tile.component.css"],
 })
 export class ScreenTileComponent implements OnInit {
   @Input()
-  histories: [{}];
+  histories: [
+    {
+      status: "STARTED" | "APPROVED" | "APPROVED";
+      url?: string;
+      file_location?: string;
+      size?: number | number;
+      title: string;
+    }
+  ];
   getVideoSub;
   page: number = 0;
 
@@ -24,14 +32,13 @@ export class ScreenTileComponent implements OnInit {
     }
     this.getVideoSub = this.videoService
       .getVideo(`${environment.apiUrl}/jobs/file/${download.file_location}`)
-      .subscribe(res => {
+      .subscribe((res) => {
         saveAs(res, `${download.file_location}.mp4`);
         this.getVideoSub.unsubscribe();
       });
   }
 
   pagination(state) {
-    console.log(state);
     switch (state) {
       case "PREVIOUS":
         this.page <= 0 ? (this.page = 0) : this.page--;
